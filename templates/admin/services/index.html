@@ -1,0 +1,42 @@
+
+@ include './admin/header.html'  
+
+
+<div class="container" dir='ltr'>
+    <div class="row mt-4">
+        @ include "./admin/menu.html"  
+        <div class="col-md-8 justify-content-center">
+            <a href="{{url_for('add_service')}}" class='btn btn-primary mb-3'>Create Service</a>
+            <table class="table">
+                <thead class="table-light">
+                    <tr>
+                        <th>#</th>
+                        <th>Title</th>
+                        <th>Price</th>
+                        <th>Options</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @ for service in services  
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ service.title }}</td>
+                        <td>{{ service.price }}</td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <form action="{{ url_for('services_list') }}?id={{service.id}}" method="post">
+                                    <button type="submit" class="btn btn-danger btn-sm">Del</button>
+                                </form>
+                                <a href="{{url_for('edit_service',service_id=service.id)}}">Edit</a>
+                            </div>
+                        </td>
+                    </tr>
+                  @ endfor  
+                </tbody>
+              </table>
+              
+        </div>
+    </div>
+</div>
+
+

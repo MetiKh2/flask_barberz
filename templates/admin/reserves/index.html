@@ -1,0 +1,59 @@
+@ include './admin/header.html'
+
+<div class="container" dir="ltr">
+  <div class="row mt-4">
+    @ include "./admin/menu.html"
+    <div class="col-md-8 justify-content-center">
+      <a href="{{url_for('add_reserve')}}" class="btn btn-primary mb-3"
+        >Create Reserve</a
+      >
+      <table class="table">
+        <thead class="table-light">
+          <tr>
+            <th>#</th>
+            <th>FullName</th>
+            <th>Phone</th>
+            <th>UserName</th>
+            <th>date</th>
+            <th>time</th>
+            <th>services</th>
+            <th>isCanceled</th>
+          </tr>
+        </thead>
+        <tbody>
+          @ for reserve in reserves
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ reserve.fullname }}</td>
+            <td>{{ reserve.phone }}</td>
+            <td>{{ reserve.get_user() }}</td>
+            <td>{{ reserve.date }}</td>
+            <td>{{ reserve.time }}</td>
+            <td>
+              @for service in reserve.get_services():
+              <span class='fw-bold border p-1 d-inline-block'>{{service[0]}},</span>
+              @endfor
+            </td>
+            <td>{{ reserve.isCanceled }} <a class='btn btn-sm btn-warning m-1' href="{{url_for('cancel_reserve')}}?id={{reserve.id}}">Cencel</a></td>
+            <td>
+              <div class="btn-group" role="group">
+                <form
+                  action="{{ url_for('reserves_list') }}?id={{reserve.id}}"
+                  method="post"
+                >
+                  <button type="submit" class="btn btn-danger btn-sm">
+                    Del
+                  </button>
+                </form>
+                <a href="{{url_for('edit_reserve',reserve_id=reserve.id)}}"
+                  >Edit</a
+                >
+              </div>
+            </td>
+          </tr>
+          @ endfor
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

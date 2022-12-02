@@ -1,0 +1,52 @@
+@ include './admin/header.html'  
+
+
+<div class="container">
+    <div class="row mt-4">
+        @ include "./admin/menu.html"  
+        <div class="col-8 border bg-white">
+            <h5 class="mt-3">Edit Reserve</h5>
+            <hr>
+           <form action="{{ url_for('edit_reserve',reserve_id=reserve.id) }}" method="post" novalidate>
+               {{ form.csrf_token }}
+               @ for field , error in form.errors.items()  
+               <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                   {{ ' , '.join(error) }}
+                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+               </div>
+               @ endfor  
+               <div class="input-group mb-3 mt-3">
+                <span class="input-group-text" id="basic-addon1">fullname</span>
+                {{ form.fullname(class="form-control", value=reserve.fullname) }}
+              </div>
+              <div class="input-group mb-3 mt-3">
+                <span class="input-group-text" id="basic-addon1">phone</span>
+                {{ form.phone(class="form-control"  , value=reserve.phone) }}
+              </div>
+              <div class="input-group mb-3 mt-3">
+                <span class="input-group-text" id="basic-addon1">description</span>
+                {{ form.description(class="form-control", value=reserve.description ) }}
+              </div>
+              <div class="input-group mb-3 mt-3">
+                <span class="input-group-text" id="basic-addon1">date</span>
+                {{ form.date(class="form-control"  ) }}
+              </div>
+              <div class="input-group mb-3 mt-3">
+                <span class="input-group-text" id="basic-addon1" >time</span>
+                {{ form.time(class="form-control",placeholder='00:00' , value=reserve.time) }}
+              </div>
+              <div class="form-group row">
+                <div class="col-md-12">
+                  {{ form.services(class='form-control',  placeholder='خدمات') }}
+                </div>
+              </div>
+              <div class="input-group mb-3 mt-3">
+                {{ form.submit(class='btn btn-success w-100') }}
+              </div>
+           
+           </form>
+        </div>
+    </div>
+</div>
+
+

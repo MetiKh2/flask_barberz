@@ -1,0 +1,95 @@
+@include './header.html'
+ @include './banner.html'
+
+<div class="site-section bg-light" id="contact-section">
+  <div class="container">
+    <div class="row justify-content-center text-center">
+      <div class="col-7 text-center mb-5">
+        <h2> رزرو وقت  </h2>
+        <span>تاریخ الان : </span> 
+        <span dir='ltr'>{{now_date}}</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-8 mb-5">
+        <form action="{{url_for('Reserve')}}" method="post">
+            @for field , error in form.errors.items()  
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ ' , '.join(error) }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            @endfor  
+
+            @with messages = get_flashed_messages(with_categories=true)  
+                @for category , message in messages  
+                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endfor  
+            @endwith  
+
+            {{ form.csrf_token }}
+          <div class="form-group row">
+            <div class="col-md-12 mb-4 mb-lg-0">
+                {{ form.fullname(class='form-control' , placeholder='نام و نام خانوادگی') }}
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-md-12">
+                {{ form.phone(class='form-control' , placeholder='تلفن') }}
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-md-12">
+              {{ form.description(class='form-control',col='30',row='10' , placeholder='توضیحات') }}
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-12">
+              {{ form.services(class='form-control',  placeholder='خدمات') }}
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-12">
+              <input
+                type="datetime-local"
+                class="form-control"
+                name='datetime'
+              />
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-6 mr-auto">
+               
+              {{ form.submit(class='btn btn-block btn-primary text-white py-3 px-5' , value='رزرو') }}
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-lg-4 ml-auto">
+        <div class="bg-white p-3 p-md-5">
+          <h3 class="text-black mb-4">اطلاعات تماس</h3>
+          <ul class="list-unstyled footer-link">
+            <li class="d-block mb-3">
+              <span class="d-block text-black">آدرس:</span>
+              <span>تهران، گیشا، درب قرمز، پلاک 6</span>
+            </li>
+            <li class="d-block mb-3">
+              <span class="d-block text-black">تلفن:</span
+              ><span>+98-88280028</span>
+            </li>
+            <li class="d-block mb-3">
+              <span class="d-block text-black">ایمیل:</span
+              ><span>sbn.alidoost@gmail.com</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+@include './footer.html'

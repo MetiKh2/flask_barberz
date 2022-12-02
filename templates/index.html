@@ -1,0 +1,97 @@
+@include './header.html' 
+@include './banner.html' 
+ 
+
+    <div class="site-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <div class="img-years">
+                        <img src="{{url_for('static',filename='images/img_1.jpg')}}" alt="Image" class="img-fluid">
+                        <div class="year">
+                            <span>3 <span>سال تجربه <br>در خدمات ما چشم میزند</span></span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-5 ml-auto pl-lg-5 text-center">
+                    <h3 class="scissors text-center">{{current_user.username}} به باربرز خوش آمدید! </h3>
+                    <p class="mb-5 lead">
+                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ
+                    </p>
+                    <p><a href="#" class="btn btn-primary">درباره ما</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="site-section bg-light" dir="ltr">
+        <div class="container">
+            <div class="row justify-content-center  mb-5">
+                <div class="col-md-7 text-center">
+                    <h3 class="scissors text-center">خدمات و تعرفه ها</h3>
+
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-12">
+
+                    <div class="m-auto owl-item cloned active" style="width: 356.667px; margin-right: 20px;"><div class="item-1 h">
+                        <img src="{{url_for('static',filename='images/img_2.jpg')}}" alt="Image" class="img-fluid">
+                        <div class="item-1-contents">
+                            <h3>خدمات </h3>
+                            <ul>
+                                
+                                 @for service in services :
+                                 <li class="d-flex"><span>{{service.title}}</span> <span class="price ml-auto">{{service.price|showPrice}}</span>
+                                 </li>
+                                 @endfor
+                            </ul>
+                        </div>
+
+                    </div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="site-section bg-light">
+        <div class="container">
+            <div class="row justify-content-center text-center mb-5">
+                <div class="col-7 text-center mb-5">
+                    <h2 class="scissors text-center">گفته های کاربران ما در مورد ما</h2>
+                    <p class="lead">
+                        بخشی از گفته های کاربان فعال سایت ما
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+             
+                 @for comment in comments:
+                 <div class="col-lg-4 mb-4 mb-lg-0">
+                    <div class="testimonial-2">
+                        <div class="d-flex v-card align-items-center mb-4">
+                            <img src="{{url_for('static',filename='images/person_1.jpg')}}" alt="Image" class="img-fluid mr-3">
+                            <span>{{comment.get_writer()}}</span>
+                        </div>
+                        <blockquote>
+                            <p>
+                                "{{comment.text}}"
+                            </p>
+                        </blockquote>
+
+                    </div>
+                </div>
+                 @endfor
+            </div>
+        </div>
+    </div>
+
+ 
+ 
+
+
+@include './footer.html' 
+
